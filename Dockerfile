@@ -1,5 +1,5 @@
 # 1단계: 빌드
-FROM node:20-alpine AS builder
+FROM node:20-bullseye AS builder
 WORKDIR /app
 
 # 의존성 설치
@@ -16,7 +16,7 @@ RUN npx prisma generate
 RUN npm run build
 
 # 2단계: 런타임 컨테이너
-FROM node:20-alpine AS runner
+FROM node:20-bullseye AS runner
 WORKDIR /app
 
 ENV NODE_ENV=production
