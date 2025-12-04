@@ -6,8 +6,8 @@
   "scripts": {
     "test": "echo \"Error: no test specified\" && exit 1",
     "dev": "remix vite:dev --host 0.0.0.0 --port 3000",
-    "build": "remix build",
-    "start": "remix-serve build/index.js"
+    "build": "remix vite:build",
+    "start": "remix-serve build/server/index.js"
   },
   "keywords": [],
   "author": "",

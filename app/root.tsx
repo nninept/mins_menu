@@ -25,6 +25,7 @@ export default function App() {
     <html lang="ko">
       <head>
         <meta charSet="utf-8" /> 
+        <link rel="icon" href="/favicon.ico" />
         <Meta />
         <Links />
       </head>

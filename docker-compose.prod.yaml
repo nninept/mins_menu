@@ -2,6 +2,9 @@ version: "3.9"
 
 services:
   web:
+    build:
+      context: .
+      dockerfile: Dockerfile
     image: mins-menu:0.1        # 로컬에서 빌드해서 NAS에 load한 이미지 이름
     container_name: mins-menu
     depends_on:
@@ -18,8 +21,6 @@ services:
       POSTGRES_USER: menu
       POSTGRES_PASSWORD: menu
       POSTGRES_DB: menu
-    ports:
-      - "5432:5432"
     volumes:
       - pgdata:/var/lib/postgresql
 

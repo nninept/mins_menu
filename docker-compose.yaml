@@ -12,7 +12,7 @@ services:
     depends_on:
       - db
     environment:
-      DATABASE_URL: postgres://menu:menu@db:5432/menu?schema=public
+      DATABASE_URL: "postgresql://menu:menu@db:5432/menu?schema=public"
 
   db:
     image: postgres:18
