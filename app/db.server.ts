@@ -1,27 +1,20 @@
+// app/db.server.ts
 import { PrismaClient } from "@prisma/client";
-import { PrismaPg } from "@prisma/adapter-pg";
+
+let prisma: PrismaClient;
 
 declare global {
-  // hot-reload 시 PrismaClient 여러 번 안 만들려고 global에 저장
-  // (Remix dev 서버용)
+  // eslint-disable-next-line no-var
   var __prisma: PrismaClient | undefined;
 }
 
-const connectionString = process.env.DATABASE_URL;
-if (!connectionString) {
-  throw new Error("DATABASE_URL 환경변수가 설정되어 있지 않습니다.");
+if (process.env.NODE_ENV === "production") {
+  prisma = new PrismaClient();
+} else {
+  if (!global.__prisma) {
+    global.__prisma = new PrismaClient();
+  }
+  prisma = global.__prisma;
 }
 
-const adapter = new PrismaPg({
-  connectionString,
-});
-
-export const prisma =
-  global.__prisma ??
-  new PrismaClient({
-    adapter,
-  });
-
-if (process.env.NODE_ENV !== "production") {
-  global.__prisma = prisma;
-}
+export { prisma };

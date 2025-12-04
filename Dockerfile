@@ -2,6 +2,8 @@
 FROM node:20-bullseye AS builder
 WORKDIR /app
 
+ENV DATABASE_URL="postgresql://menu:menu@db:5432/menu?schema=public"
+
 # 의존성 설치
 COPY package*.json ./
 RUN npm ci

@@ -6,6 +6,7 @@
 
 datasource db {
   provider = "postgresql"
+  url      = env("DATABASE_URL")  // ✅ 다시 살려놓기
 }
 
 generator client {
