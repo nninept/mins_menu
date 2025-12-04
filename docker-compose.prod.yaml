@@ -1,0 +1,29 @@
+version: "3.9"
+
+services:
+  web:
+    image: mins-menu:0.1        # 로컬에서 빌드해서 NAS에 load한 이미지 이름
+    container_name: mins-menu
+    depends_on:
+      - db
+    environment:
+      NODE_ENV: production
+      DATABASE_URL: postgresql://menu:menu@db:5432/menu?schema=public
+    ports:
+      - "3000:3000"
+
+  db:
+    image: postgres:18
+    container_name: mins-menu-db
+    restart: always
+    environment:
+      POSTGRES_USER: menu
+      POSTGRES_PASSWORD: menu
+      POSTGRES_DB: menu
+    ports:
+      - "5432:5432"
+    volumes:
+      - pgdata:/var/lib/postgresql/data
+
+volumes:
+  pgdata:

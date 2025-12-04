@@ -1,0 +1,12 @@
+html {
+  font-size: 70px;
+}
+
+html,
+body {
+  margin : 0;
+  padding : 0;
+  height : 100%;
+  background-color: white;
+  overflow: auto;
+}
