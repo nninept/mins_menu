@@ -7,16 +7,18 @@ body {
   padding: 0;
   height: 100%;
   background-color: #f7f7f7;
+  overflow-x: hidden; /* 🔥 가로 스크롤 방지 */
 }
 
 /* =========================================
    admin 페이지 전체
 ========================================= */
 .admin-page {
-  width: 100vw;
-  min-height: 100vh;
+  width: 100%;
+  max-width: 100%;
+  overflow-x: hidden;
 
-  padding-inline: 4vw;
+  padding-inline: min(4vw, 20px); /* 🔥 작은 화면에서는 패딩 자동 축소 */
   padding-top: calc(2vh + env(safe-area-inset-top));
   padding-bottom: calc(3vh + env(safe-area-inset-bottom));
 
@@ -40,10 +42,13 @@ body {
 ========================================= */
 .admin-section {
   margin-bottom: 3vh;
+  width: 100%;
+  max-width: 100%;
+  overflow-x: hidden;
 }
 
 /* =========================================
-   카드 스타일
+   카드
 ========================================= */
 .admin-card {
   background: #ffffff;
@@ -51,25 +56,35 @@ body {
   border: 1px solid #eeeeee;
   padding: 1.5vh 2vw;
   box-shadow: 0 1px 3px rgba(0, 0, 0, 0.04);
+
+  width: 100%;
+  box-sizing: border-box;
 }
 
 /* =========================================
-   Form (새 메뉴 추가)
+   새 메뉴 추가 Form
 ========================================= */
 .admin-form {
   display: grid;
   gap: 1vh;
+  width: 100%;
+  max-width: 100%;
+  box-sizing: border-box;
 }
 
+/* label + input container */
 .admin-label {
   font-size: clamp(0.75rem, 2.6vw, 0.85rem);
   display: block;
+  width: 100%;
 }
 
+/* 🔥 폼 요소를 항상 100%로 맞추기 */
 .admin-input,
 .admin-textarea,
 .admin-select {
   width: 100%;
+  max-width: 100%;
   margin-top: 0.4vh;
   padding: 0.6vh 1vw;
   font-size: clamp(0.8rem, 2.7vw, 0.9rem);
@@ -77,15 +92,20 @@ body {
 }
 
 .admin-textarea {
-  resize: vertical;
+  resize: none;  /* 사용자가 수동으로 조절하는걸 막고 */
+  overflow: hidden;
+  min-height: 3rem; /* 기본 높이 */
+  line-height: 1.4;
 }
 
+/* 파일 업로드 */
 .admin-file-input {
-  font-size: 0.9rem;          /* 전체 폰트 기준 */
-  padding: 0.4rem 0;          /* 위아래 여백만 살짝 */
+  font-size: 0.9rem;
+  padding: 0.4rem 0;
   color: #333;
+  width: 100%;
 }
-/* 실제 버튼 부분 스타일 (크롬 / 엣지 / 새 사파리 등) */
+
 .admin-file-input::file-selector-button {
   margin-right: 0.6rem;
   padding: 0.3rem 0.3rem;
@@ -96,7 +116,6 @@ body {
   font-weight: 600;
   font-size: 0.6rem;
   cursor: pointer;
-  transition: background-color 0.15s ease, transform 0.05s ease;
 }
 
 .admin-button-primary {
@@ -109,6 +128,9 @@ body {
   font-weight: 600;
   font-size: clamp(0.85rem, 2.8vw, 0.95rem);
   cursor: pointer;
+
+  width: 100%;        /* 🔥 버튼도 폭 맞춤 */
+  max-width: 100%;
 }
 
 /* =========================================
@@ -120,6 +142,7 @@ body {
   margin: 0;
   display: grid;
   gap: 1.2vh;
+  width: 100%;
 }
 
 .admin-list-item-title {
@@ -133,13 +156,14 @@ body {
 }
 
 /* =========================================
-   재고 조절 - 좌우 배치
+   재고 조절 – 버튼 배치
 ========================================= */
 .admin-item-row {
   display: flex;
   justify-content: space-between;
   align-items: center;
   gap: 3vw;
+  width: 100%;
 }
 
 /* 오른쪽 버튼 묶음 */
@@ -169,40 +193,63 @@ body {
 }
 
 /* 편집 / 삭제 버튼 묶음 */
+/* 재고/버튼 영역 전체 */
 .admin-item-actions {
+  margin-top: 0.6rem;
   display: flex;
   flex-direction: column;
-  align-items: flex-end;
-  gap: 0.8vh;
+  gap: 0.4rem;
+  align-items: stretch;
 }
 
-.admin-edit-button {
-  padding: 0.7vh 1.4vw;
+/* "현재 재고" 텍스트 */
+.admin-item-actions-stock {
+  font-size: clamp(0.4rem, 0.5rem, 0.5rem);
+  color: #666;
+}
+
+/* 2x2 버튼 그리드 */
+.admin-item-actions-grid {
+  display: grid;
+  grid-template-columns: repeat(2, minmax(0, 1fr));
+  gap: 0.4rem;
+  width: 100%;
+}
+
+/* 각 버튼을 감싸는 폼 */
+.admin-action-form {
+  width: 100%;
+}
+
+/* 공통 버튼 스타일 */
+.admin-action-button {
+  width: 100%;
+  height: 80px;
   border-radius: 16px;
   border: none;
-  background: #ff6a00;
+  font-size: 0.9rem;
+  font-weight: 600;
   color: #ffffff;
-  font-size: clamp(0.75rem, 2.6vw, 0.85rem);
   cursor: pointer;
 }
 
-.admin-delete-form {
-  margin-left: 0.5rem;
+/* 개별 색상 */
+.admin-action-button--plus {
+  background: #333333;
 }
 
-.admin-delete-button {
-  padding: 0.7vh 1.4vw;
-  border-radius: 16px;
-  border: none;
+.admin-action-button--minus {
+  background: #777777;
+}
+
+.admin-action-button--delete {
   background: #ff4d4f;
-  color: #fff;
-  font-size: clamp(0.75rem, 2.6vw, 0.85rem);; /* 이미 rem 기반 */
-  cursor: pointer;
 }
 
-.admin-delete-button:hover {
-  background: #d9363e;
+.admin-action-button--hide {
+  background: #555555;
 }
+
 
 /* ====== Admin 모달 ====== */
 .admin-modal-backdrop {

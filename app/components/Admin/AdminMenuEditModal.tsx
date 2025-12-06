@@ -98,6 +98,12 @@ export const AdminMenuEditModal = ({
               name="description"
               defaultValue={item.description ?? ""}
               className="admin-textarea"
+              onInput={(e) => {
+                const el = e.currentTarget;
+                el.style.height = "auto";
+                el.style.height = el.scrollHeight + "px";
+              }}
+              style={{ overflow: "hidden" }}   // 스크롤 없앰
             />
           </label>
 
