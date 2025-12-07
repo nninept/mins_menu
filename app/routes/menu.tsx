@@ -43,7 +43,6 @@ export const loader = async (_args: LoaderFunctionArgs) => {
 
   const defaultImages = [
     "/images/menu-hero1.jpg",
-    "/images/menu-hero2.jpg",
   ];
 
   const heroImages =
