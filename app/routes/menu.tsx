@@ -6,7 +6,7 @@ import type {
 } from "@remix-run/node";
 import { json } from "@remix-run/node";
 import { useLoaderData } from "@remix-run/react";
-import { useMemo, useState } from "react";
+import { useMemo, useState, useEffect } from "react";
 import type { SerializeFrom } from "@remix-run/server-runtime";
 
 import type { Category } from "~/data/menuData";
@@ -20,7 +20,10 @@ import { MenuSubTabs } from "~/components/Menu/MenuSubTabs";
 
 /* ---------- loader ---------- */
 
-
+const heroImages = [
+  "/images/menu-hero1.jpg",
+  "/images/menu-hero2.JPG",
+];
 
 export const loader = async (_args: LoaderFunctionArgs) => {
   const [drink, food] = await Promise.all([
@@ -55,6 +58,23 @@ export default function MenuRoute() {
   const currentSub = subFilter[category];
   const allItems = menu[category];
 
+  const [currentIndex, setCurrentIndex] = useState(0);
+  const [nextIndex, setNextIndex] = useState(1);
+  const [isFading, setIsFading] = useState(false);
+  useEffect(() => {
+    const interval = setInterval(() => {
+      setIsFading(true);
+
+      setTimeout(() => {
+        setCurrentIndex((prev) => (prev + 1) % heroImages.length);
+        setIsFading(false);
+      }, 1000);
+
+    }, 7000);
+
+    return () => clearInterval(interval);
+  }, []);
+
   const subOptions = useMemo(() => {
     const set = new Set<string>();
     for (const item of allItems) {
@@ -81,7 +101,13 @@ export default function MenuRoute() {
     <main className="menu-page">
       {/* ---------- HERO 섹션 ---------- */}
       <section className="menu-hero">
-        <img src="/images/menu-hero.jpg" className="menu-hero-img" />
+<div className="menu-hero-image-wrapper">
+<div
+  className={`menu-hero-img single ${isFading ? "fade-out" : "fade-in"}`}
+  style={{ backgroundImage: `url(${heroImages[currentIndex]})` }}
+></div>
+</div>
+      
 
         <div className="menu-hero-content">
           {/* 왼쪽 WELCOME 텍스트 */}
