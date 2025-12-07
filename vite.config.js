@@ -15,4 +15,11 @@ export default defineConfig({
       "~": resolve(__dirname, "app"), // ~/ → app/ 으로 매핑
     },
   },
+  server: {
+    host: true,        // 외부 접근 허용
+    port: 3000,
+    fs: {
+      strict: false
+    }
+  }
 });

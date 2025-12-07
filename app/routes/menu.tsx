@@ -17,23 +17,44 @@ import { MenuTabs } from "~/components/Menu/MenuTabs";
 import { MenuCard } from "~/components/Menu/MenuCard";
 import { MenuModal } from "~/components/Menu/MenuModal";
 import { MenuSubTabs } from "~/components/Menu/MenuSubTabs";
-
-/* ---------- loader ---------- */
-
-const heroImages = [
-  "/images/menu-hero1.jpg",
-  "/images/menu-hero2.JPG",
-];
+import fs from "fs";
+import path from "path";
 
 export const loader = async (_args: LoaderFunctionArgs) => {
+  /* ---- 기존 메뉴 로딩 유지 ---- */
   const [drink, food] = await Promise.all([
     listMenuByCategory("drink"),
     listMenuByCategory("food"),
   ]);
 
+  /* ---- 여기서 hero 이미지 로딩 ---- */
+  const uploadDir = path.join(process.cwd(), "public/uploads/hero");
+  let uploadedImages: string[] = [];
+
+  try {
+    const files = fs.readdirSync(uploadDir);
+
+    uploadedImages = files
+      .filter((file) => /\.(jpg|jpeg|png|webp)$/i.test(file))
+      .map((file) => `/uploads/hero/${file}`);
+  } catch {
+    uploadedImages = [];
+  }
+
+  const defaultImages = [
+    "/images/menu-hero1.jpg",
+    "/images/menu-hero2.jpg",
+  ];
+
+  const heroImages =
+    uploadedImages.length > 0 ? uploadedImages : defaultImages;
+
+  /* ---- 기존 return + heroImages 추가 ---- */
   return json({
     initialCategory: "drink" as Category,
     menu: { drink, food },
+
+    heroImages, // ⭐ 여기만 추가됨
   });
 };
 
@@ -47,7 +68,7 @@ export const links: LinksFunction = () => [
 export const meta: MetaFunction = () => [{ title: "Menu" }];
 
 export default function MenuRoute() {
-  const { initialCategory, menu } = useLoaderData<typeof loader>();
+  const { initialCategory, menu, heroImages} = useLoaderData<typeof loader>();
 
   const [category, setCategory] = useState<Category>(initialCategory);
   const [subFilter, setSubFilter] = useState<{ drink: string; food: string }>({
@@ -120,10 +141,17 @@ export default function MenuRoute() {
           {/* 오른쪽 / 가운데 정보 카드 */}
           <div className="menu-hero-card">
             <p>
-              우리는 가볍게 한 잔하면서 이야기를 나눌 수 있는 동네 바를
-              지향합니다. 계절에 맞는 재료로 메뉴를 자주 조금씩 바꾸고,
-              메뉴판을 읽는 것만으로도 오늘의 기분을 고를 수 있는 바가
-              되었으면 합니다.
+              Good Drink, Good Friends, Good Night!
+              
+            </p>
+            <p>
+
+              이곳은 여러분만을 위한 프라이빗 바, 
+              즐거움을 찾으신다면 언제든 환영입니다!
+            </p>
+            <p>
+              만일 여러분이 원하시는 음료가 없다면 언제든 말씀해주세요.
+              다음번엔 잊지않고 준비해드리겠습니다
             </p>
           </div>
         </div>

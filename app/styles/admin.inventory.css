@@ -1,0 +1,277 @@
+/* app/styles/admin.inventory.css */
+
+/* =========================================
+   섹션 간격
+========================================= */
+.admin-section {
+  margin-bottom: 3vh;
+  width: 100%;
+  max-width: 100%;
+  overflow-x: hidden;
+}
+
+/* =========================================
+   카드
+========================================= */
+.admin-card {
+  background: #ffffff;
+  border-radius: 10px;
+  border: 1px solid #eeeeee;
+  padding: 1.5vh 2vw;
+  box-shadow: 0 1px 3px rgba(0, 0, 0, 0.04);
+
+  width: 100%;
+  box-sizing: border-box;
+}
+
+/* =========================================
+   새 메뉴 추가 Form
+========================================= */
+.admin-form {
+  display: grid;
+  gap: 1vh;
+  width: 100%;
+  max-width: 100%;
+  box-sizing: border-box;
+}
+
+/* label + input container */
+.admin-label {
+  font-size: clamp(0.75rem, 2.6vw, 0.85rem);
+  display: block;
+  width: 100%;
+}
+
+/* 🔥 폼 요소를 항상 100%로 맞추기 */
+.admin-input,
+.admin-textarea,
+.admin-select {
+  width: 100%;
+  max-width: 100%;
+  margin-top: 0.4vh;
+  padding: 0.6vh 1vw;
+  font-size: clamp(0.8rem, 2.7vw, 0.9rem);
+  box-sizing: border-box;
+}
+
+.admin-textarea {
+  resize: none;  /* 사용자가 수동으로 조절하는걸 막고 */
+  overflow: hidden;
+  min-height: 3rem; /* 기본 높이 */
+  line-height: 1.4;
+}
+
+/* 파일 업로드 */
+.admin-file-input {
+  font-size: 0.9rem;
+  padding: 0.4rem 0;
+  color: #333;
+  width: 100%;
+}
+
+.admin-file-input::file-selector-button {
+  margin-right: 0.6rem;
+  padding: 0.3rem 0.3rem;
+  border-radius: 6px;
+  border: none;
+  background-color: #efefef;
+  color: #000000;
+  font-weight: 600;
+  font-size: 0.6rem;
+  cursor: pointer;
+}
+
+.admin-button-primary {
+  margin-top: 1vh;
+  padding: 0.9vh 1.4vw;
+  border-radius: 6px;
+  border: none;
+  background: #ff6a00;
+  color: #ffffff;
+  font-weight: 600;
+  font-size: clamp(0.85rem, 2.8vw, 0.95rem);
+  cursor: pointer;
+
+  width: 100%;        /* 🔥 버튼도 폭 맞춤 */
+  max-width: 100%;
+}
+
+/* =========================================
+   기존 메뉴 리스트
+========================================= */
+.admin-list {
+  list-style: none;
+  padding: 0;
+  margin: 0;
+  display: grid;
+  gap: 1.2vh;
+  width: 100%;
+}
+
+.admin-list-item-title {
+  font-weight: 600;
+  font-size: clamp(0.6rem, 0.7rem, 0.7rem);
+}
+
+.admin-list-item-sub {
+  font-size: clamp(0.4rem, 0.5rem, 0.5rem);
+  color: #666;
+}
+
+/* =========================================
+   재고 조절 – 버튼 배치
+========================================= */
+.admin-item-row {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  gap: 3vw;
+  width: 100%;
+}
+
+/* 오른쪽 버튼 묶음 */
+.admin-stock-buttons {
+  display: flex;
+  flex-direction: row;   /* 🔥 수평 배치 */
+  gap: 2vw;              /* 버튼 간 가로 간격 */
+  align-items: center;
+}
+
+/* + / - 버튼 공통 스타일 */
+.admin-stock-buttons button {
+  width: 80px;
+  height: 80px;
+  border-radius: 16px;
+  border: none;
+  font-size: 0.9rem; /* 🔥 18px → rem */
+  font-weight: 600;
+  cursor: pointer;
+  background: #333333;
+  color: #ffffff;
+}
+
+/* - 버튼은 약간 연한색 */
+.admin-stock-buttons button[data-variant="down"] {
+  background: #777777;
+}
+
+/* 편집 / 삭제 버튼 묶음 */
+/* 재고/버튼 영역 전체 */
+.admin-item-actions {
+  margin-top: 0.6rem;
+  display: flex;
+  flex-direction: column;
+  gap: 0.4rem;
+  align-items: stretch;
+}
+
+/* "현재 재고" 텍스트 */
+.admin-item-actions-stock {
+  font-size: clamp(0.4rem, 0.5rem, 0.5rem);
+  color: #666;
+}
+
+/* 2x2 버튼 그리드 */
+.admin-item-actions-grid {
+  display: grid;
+  grid-template-columns: repeat(2, minmax(0, 1fr));
+  gap: 0.4rem;
+  width: 100%;
+}
+
+/* 각 버튼을 감싸는 폼 */
+.admin-action-form {
+  width: 100%;
+}
+
+/* 공통 버튼 스타일 */
+.admin-action-button {
+  width: 100%;
+  height: 80px;
+  border-radius: 16px;
+  border: none;
+  font-size: 0.9rem;
+  font-weight: 600;
+  color: #ffffff;
+  cursor: pointer;
+}
+
+/* 개별 색상 */
+.admin-action-button--plus {
+  background: #333333;
+}
+
+.admin-action-button--minus {
+  background: #777777;
+}
+
+.admin-action-button--delete {
+  background: #ff4d4f;
+}
+
+.admin-action-button--hide {
+  background: #555555;
+}
+
+
+/* ====== Admin 모달 ====== */
+.admin-modal-backdrop {
+  position: fixed;
+  inset: 0;
+  background: rgba(0, 0, 0, 0.45);
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  z-index: 300;
+}
+
+.admin-modal {
+  width: 90%;
+  height: 85vh;
+  max-width: none;
+  max-height: none;
+  background: #ffffff;
+  border-radius: 14px;
+  padding: 2vh 3vw;
+  box-sizing: border-box;
+  position: relative;
+  overflow-y: auto;
+}
+
+.admin-modal-close {
+  position: absolute;
+  top: 1.2vh;
+  right: 3vw;
+  width: 32px;
+  height: 32px;
+  border-radius: 999px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  padding: 0;
+  margin: 0;
+  font-size: 1.375rem; /* 🔥 22px → rem */
+  line-height: 1;
+  background: rgba(255, 255, 255, 0.9);
+  border: none;
+  cursor: pointer;
+  color: #333;
+}
+
+.admin-modal-title {
+  font-size: clamp(1.1rem, 4vw, 1.3rem);
+  font-weight: 600;
+  margin: 0 0 1.5vh;
+}
+
+.admin-modal-form {
+  display: grid;
+  gap: 1vh;
+}
+
+.admin-modal-actions {
+  margin-top: 1.5vh;
+  display: flex;
+  justify-content: flex-end;
+  gap: 1vw;
+}

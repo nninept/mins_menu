@@ -34,21 +34,13 @@ body {
   position: relative;
   width: 100%;
   overflow: visible; /* 중요 */
-  padding-bottom: 3.5rem; /* hero-card 높이만큼 공간 확보 */
+  padding-bottom: 0rem; /* hero-card 높이만큼 공간 확보 */
   aspect-ratio: 3 / 4; /* 원하는 비율로 고정 */
-  margin-bottom: 5rem;
+  margin-bottom: 7rem;
   /* height: 80vh;  */
   background-color: white; /* 위아래 빈 공간 하얀색 처리 */
 }
 
-/* 배경 이미지 */
-/* .menu-hero-img {
-  width: 100%;
-  height: auto;      
-  display: block;
-  object-fit: contain; 
-} */
-/* 이미지들을 겹쳐서 표시할 영역 */
 .menu-hero-img.single {
   position: absolute;
   inset: 0;
@@ -65,7 +57,6 @@ body {
 .menu-hero-img.single.fade-in {
   opacity: 1;
 }
-
 
 
 /* 이미지 위 텍스트 영역 */
@@ -122,8 +113,8 @@ body {
 .menu-hero-card {
   position: absolute;
   left: 50%;
-  bottom: -1rem;              /* 아래로 살짝 내려서 사진 밖으로 튀어나오게 */
-  transform: translateX(-50%);
+  bottom: -5rem;              /* 아래로 살짝 내려서 사진 밖으로 튀어나오게 */
+  transform: translate(-50%);
   width: 90%;
   max-width: 80%;
   font-size: 0.5rem;

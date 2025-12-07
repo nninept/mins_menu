@@ -1,0 +1,138 @@
+/* app/styles/admin.system.css */
+
+.admin-system-page {
+  padding: 1.5rem;
+}
+
+.admin-system-title {
+  font-size: 1.8rem;
+  font-weight: 700;
+  margin-bottom: 1rem;
+}
+
+.admin-system-upload-box {
+  padding: 1rem;
+  border: 1px solid #ddd;
+  border-radius: 10px;
+  background: #fafafa;
+  margin-bottom: 1.5rem;
+}
+
+.admin-system-preview img {
+  width: 120px;
+  margin: 0.5rem 0;
+  border-radius: 6px;
+  border: 1px solid #ddd;
+}
+
+.admin-system-button {
+  padding: 0.6rem 1rem;
+  background: #4d84ce;
+  color: white;
+  border: none;
+  border-radius: 6px;
+  cursor: pointer;
+}
+
+.admin-system-button:hover {
+  background: #3c6db2;
+}
+
+/* 가로 스크롤 컨테이너 */
+.admin-system-gallery {
+  display: flex;
+  gap: 12px;
+  overflow-x: auto;
+  padding: 12px 4px;
+  scroll-snap-type: x mandatory;
+
+  /* 스크롤바 예쁘게 (옵션) */
+  scrollbar-width: thin;
+  scrollbar-color: #ccc transparent;
+}
+
+.admin-system-gallery::-webkit-scrollbar {
+  height: 6px;
+}
+
+.admin-system-gallery::-webkit-scrollbar-thumb {
+  background: #ccc;
+  border-radius: 6px;
+}
+
+.admin-system-gallery::-webkit-scrollbar-track {
+  background: transparent;
+}
+
+/* 이미지 박스 */
+.admin-system-img-box {
+  flex: 0 0 auto;
+  scroll-snap-align: start;
+
+  display: flex;
+  justify-content: center;
+  align-items: center;
+
+  width: 160px;
+  height: 200px;
+
+  border: 1px solid #ddd;
+  background: #fafafa;
+  border-radius: 10px;
+
+  overflow: hidden;
+}
+
+/* 이미지 자체 */
+.admin-system-img-box img {
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+}
+
+/* 이미지 박스 */
+.admin-system-img-box {
+  position: relative;
+  flex: 0 0 auto;
+  width: 160px;
+  height: 200px;
+  border: 1px solid #ddd;
+  background: #fafafa;
+  border-radius: 10px;
+  overflow: hidden;
+}
+
+/* 삭제 버튼 form */
+.admin-system-delete-form {
+  position: absolute;
+  top: 6px;
+  right: 6px;
+}
+
+/* X 버튼 스타일 */
+.admin-system-delete-btn {
+  width: 26px;
+  height: 26px;
+  border: none;
+  border-radius: 50%;
+  background: rgba(255, 0, 0, 0.85);
+  color: white;
+  font-size: 18px;
+  font-weight: bold;
+  cursor: pointer;
+  line-height: 0;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+
+.admin-system-delete-btn:hover {
+  background: red;
+}
+
+.admin-system-img-box {
+  cursor: grab;
+}
+.admin-system-img-box:active {
+  cursor: grabbing;
+}
