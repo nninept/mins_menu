@@ -20,9 +20,10 @@ import { MenuSubTabs } from "~/components/Menu/MenuSubTabs";
 
 /* ---------- loader ---------- */
 
+
+
 export const loader = async (_args: LoaderFunctionArgs) => {
   const [drink, food] = await Promise.all([
-    // 🔥 모든 메뉴 가져오기 (stock 0 포함)
     listMenuByCategory("drink"),
     listMenuByCategory("food"),
   ]);
@@ -46,69 +47,83 @@ export default function MenuRoute() {
   const { initialCategory, menu } = useLoaderData<typeof loader>();
 
   const [category, setCategory] = useState<Category>(initialCategory);
-
-  // 🔥 각 카테고리별 subCategory 상태 저장 (기본값: "all")
   const [subFilter, setSubFilter] = useState<{ drink: string; food: string }>({
     drink: "all",
     food: "all",
   });
 
   const currentSub = subFilter[category];
-
-  // 현재 카테고리 기준 전체 아이템
   const allItems = menu[category];
 
-  // 현재 카테고리의 subCategory 목록 계산
   const subOptions = useMemo(() => {
     const set = new Set<string>();
     for (const item of allItems) {
-      if (item.subCategory) {
-        set.add(item.subCategory);
-      }
+      if (item.subCategory) set.add(item.subCategory);
     }
-    // "전체" 탭 포함
     return ["all", ...Array.from(set)];
   }, [allItems]);
 
-// subCategory 적용 후
-const items: UIMenuItem[] =
-  currentSub === "all"
-    ? allItems
-    : allItems.filter((item) => item.subCategory === currentSub);
+  const items: UIMenuItem[] =
+    currentSub === "all"
+      ? allItems
+      : allItems.filter((item) => item.subCategory === currentSub);
 
-// 🔥 정렬: 재고 있는 것 → 이름순 / 재고 없는 것 → 맨 뒤 + 이름순
-const sortedItems = [...items].sort((a, b) => {
-  const aSold = a.stock === 0;
-  const bSold = b.stock === 0;
+  const sortedItems = [...items].sort((a, b) => {
+    const aSold = a.stock === 0;
+    const bSold = b.stock === 0;
+    if (aSold !== bSold) return aSold ? 1 : -1;
+    return a.name.localeCompare(b.name, "ko");
+  });
 
-  if (aSold !== bSold) {
-    return aSold ? 1 : -1;
-  }
-
-  return a.name.localeCompare(b.name, "ko");
-});
   const [selectedItem, setSelectedItem] = useState<UIMenuItem | null>(null);
 
   return (
     <main className="menu-page">
-      {/* 상단 고정 탭 (Drink / Food) */}
-      <MenuTabs category={category} onChange={setCategory} />
+      {/* ---------- HERO 섹션 ---------- */}
+      <section className="menu-hero">
+        <img src="/images/menu-hero.jpg" className="menu-hero-img" />
 
-      {/* 메인/서브 탭 사이 회색 줄은 기존 그대로 */}
+        <div className="menu-hero-content">
+          {/* 왼쪽 WELCOME 텍스트 */}
+          <div className="menu-hero-heading">
+            <span className="menu-hero-heading-line">Welcome</span>
+            <span className="menu-hero-heading-line">to</span>
+            <span className="menu-hero-heading-line">Min's place</span>
+          </div>
 
-      {/* 🔥 현재 카테고리용 서브 탭 (beer, wine...) */}
-      <MenuSubTabs
-        options={subOptions}
-        active={currentSub}
-        onChange={(value) =>
-          setSubFilter((prev) => ({
-            ...prev,
-            [category]: value,
-          }))
-        }
-      />
+          {/* 오른쪽 / 가운데 정보 카드 */}
+          <div className="menu-hero-card">
+            <p>
+              우리는 가볍게 한 잔하면서 이야기를 나눌 수 있는 동네 바를
+              지향합니다. 계절에 맞는 재료로 메뉴를 자주 조금씩 바꾸고,
+              메뉴판을 읽는 것만으로도 오늘의 기분을 고를 수 있는 바가
+              되었으면 합니다.
+            </p>
+          </div>
+        </div>
+      </section>
 
-      <div className="menu-scroll-area">
+      {/* ---------- 메뉴 영역 (탭 + 리스트) ---------- */}
+      <div className="menu-sticky-header">
+        {/* 상단 탭 (스크롤 시 sticky) */}
+
+        <MenuTabs category={category} onChange={setCategory} />
+
+        {/* 서브 탭 */}
+        <MenuSubTabs
+          options={subOptions}
+          active={currentSub}
+          onChange={(value) =>
+            setSubFilter((prev) => ({
+              ...prev,
+              [category]: value,
+            }))
+          }
+        />
+
+        </div>
+        {/* 메뉴 리스트 */}
+        <section className="menu-main">
         <section className="menu-grid">
           {sortedItems.map((item) => (
             <button
@@ -121,7 +136,7 @@ const sortedItems = [...items].sort((a, b) => {
             </button>
           ))}
         </section>
-      </div>
+      </section>
 
       {selectedItem && (
         <MenuModal item={selectedItem} onClose={() => setSelectedItem(null)} />

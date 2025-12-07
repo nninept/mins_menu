@@ -1,12 +1,12 @@
 /* =========================================
-   기본 레이아웃 (전체 화면)
+   전체 레이아웃
 ========================================= */
 html,
 body {
   margin: 0;
   padding: 0;
   height: 100%;
-  background-color: #f7f7f7;
+  background-color: #000; /* 히어로 어두운 배경과 자연스럽게 */
 }
 
 /* =========================================
@@ -14,16 +14,140 @@ body {
 ========================================= */
 .menu-page {
   width: 100vw;
-  height: 100vh; /* 🔥 전체 화면 높이 */
-  display: flex;
-  flex-direction: column;
-  overflow: hidden; /* 🔥 내부 스크롤만 허용 */
-  
+  min-height: 100vh;
+  box-sizing: border-box;
+
   padding-inline: 4vw;
   padding-top: calc(2vh + env(safe-area-inset-top));
   padding-bottom: calc(3vh + env(safe-area-inset-bottom));
-  box-sizing: border-box;
+
   background-color: #ffffff;
+  color: #fff;
+
+  overflow-x: clip;
+}
+
+/* =========================================
+   히어로 섹션
+========================================= */
+.menu-hero {
+  position: relative;
+  width: 100%;
+  overflow: visible; /* 중요 */
+  padding-bottom: 3.5rem; /* hero-card 높이만큼 공간 확보 */
+  margin-bottom: 5rem;;
+}
+
+/* 배경 이미지 */
+.menu-hero-img {
+  width: 100%;
+  height: auto;       /* 이미지 비율 유지 */
+  display: block;
+  object-fit: contain;  /* crop 없이 전체 이미지 표시 */
+}
+
+/* 이미지 위 텍스트 영역 */
+.menu-hero-content {
+  position: absolute;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+
+  padding: 14vh 4vw 8vh;
+  box-sizing: border-box;
+  text-align: center;
+}
+
+/* 히어로 섹션 안쪽 컨테이너 */
+.menu-hero-overlay {
+  position: relative;
+  width: 100%;
+  height: 100%;
+  padding: 14vh 4vw 8vh;   /* 조금만 여백 */
+  box-sizing: border-box;
+
+  display: flex;
+  flex-direction: column;
+  justify-content: center; /* 세로 가운데 근처 */
+  align-items: center;     /* 🔥 가로 가운데 정렬 */
+  text-align: center;      /* 🔥 안의 텍스트 중앙 정렬 */
+}
+
+/* welcome / to / mins menu 묶음 */
+.menu-hero-heading {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 0.2rem;             /* 줄 사이 간격 */
+}
+
+/* 각 줄(span) 한 줄씩, 중앙 정렬 */
+.menu-hero-heading-line {
+  display: block;          /* 🔥 줄바꿈 */
+  font-size: clamp(1.6rem, 7vw, 2.4rem);
+  font-weight: 700;
+  letter-spacing: 0.12em;
+  text-shadow: 0 3px 8px rgba(0, 0, 0, 0.6);
+}
+
+/* 사진에 걸쳐서 나오는 소개 카드 */
+.menu-hero-card {
+  position: absolute;
+  left: 50%;
+  bottom: -1rem;              /* 아래로 살짝 내려서 사진 밖으로 튀어나오게 */
+  transform: translateX(-50%);
+  width: 90%;
+  max-width: 80%;
+  font-size: 0.5rem;
+
+  background-color: rgba(250, 250, 250, 0.96);
+  color: #222;
+  border-radius: 18px;
+  padding: 0.7rem 1rem 1rem;
+  box-shadow: 0 10px 30px rgba(0, 0, 0, 0.4);
+  box-sizing: border-box;
+}
+
+.menu-hero-card-title {
+  margin: 0 0 0.4rem;
+  font-size: 0.95rem;
+  font-weight: 700;
+}
+
+.menu-hero-card-body {
+  margin: 0;
+  font-size: 0.3rem;
+  line-height: 1.5;
+  white-space: pre-wrap;
+}
+
+/* =========================================
+   메뉴 섹션 + sticky 헤더
+========================================= */
+.menu-main {
+  padding-top: 0rem; /* 기존 2.6rem → 5.5rem로 증가 */
+}
+
+.menu-sticky-header {
+  position: sticky;
+  top: 0; /* 혹은 env(safe-area-inset-top) */
+  z-index: 200;
+
+  background: #fff;
+  padding-top: 0.8rem;
+  padding-bottom: 0.4rem;
+
+  /* menu-page에 padding-inline이 있으니 그것을 상쇄 */
+  margin-inline: -4vw;
+  padding-inline: 4vw;
+
+  box-shadow: 0 4px 12px rgba(0,0,0,0.08);
 }
 
 /* =========================================
@@ -33,21 +157,13 @@ body {
   display: flex;
   gap: 6vw;
   border-bottom: 1px solid #ececec;
-
-  position: sticky;
-  top: calc(2vh + env(safe-area-inset-top));
-  background-color: #ffffff;
-  z-index: 10;
-
-  padding-top: 1vh;
-  padding-bottom: 1vh;  /* ← 탭 안쪽 패딩 (줄 위쪽 여백) */
-  
-  margin-bottom: 2vh;   /* 🔥 줄 아래 공백 추가하는 부분! */
+  padding-bottom: 0.4rem;
+  margin-bottom: 0.4rem;
 }
 
 .menu-tab {
   position: relative;
-  padding: 0.8vh 0 1vh;
+  padding: 0.4rem 0 0.45rem;
   font-size: clamp(0.9rem, 3.2vw, 1rem);
   border: none;
   background: none;
@@ -71,63 +187,67 @@ body {
   background-color: #ff6a00;
 }
 
-/* 스크롤 영역 */
-.menu-scroll-area {
-  flex: 1;
-  overflow-y: auto;
-  padding-top: 1vh;
-}
-
 /* =========================================
-   페이지 타이틀
+   서브 탭 (하위 카테고리)
 ========================================= */
-.menu-title {
-  font-size: clamp(1.1rem, 4vw, 1.3rem);
-  font-weight: 600;
-  margin: 1vh 0 1.5vh;
+.menu-subtabs {
+  display: flex;
+  gap: 12px;
+  padding: 4px 0 6px;
+  border-bottom: 1px solid #f0f0f0;
+}
+
+.menu-subtab-button {
+  border: none;
+  background: transparent;
+  padding: 2px 6px;
+  font-size: 0.6rem;
+  color: #777;
+  cursor: pointer;
+}
+
+.menu-subtab-button--active {
+  color: #ff6400;
+  font-weight: 700;
+  border-bottom: 2px solid #ff6400;
 }
 
 /* =========================================
-   메뉴 카드 그리드 (2열)
+   메뉴 카드 그리드
 ========================================= */
 .menu-grid {
+  margin-top: 1rem;
   display: grid;
   grid-template-columns: repeat(2, minmax(0, 1fr));
   column-gap: 16px;
-  row-gap: 10px;   /* 🔥 20px → 10px 으로 줄임 */
+  row-gap: 10px;
 }
 
-/* 🔥 버튼 래퍼: 완전 투명하게 만들기 */
+/* 카드 버튼 래퍼 */
 .menu-card-button-wrapper {
   padding: 0;
   margin: 0;
   border: none;
   background: none;
   outline: none;
-
   width: 100%;
   text-align: inherit;
   cursor: pointer;
 }
 
-/* =========================================
-   메뉴 카드 개별 스타일
-========================================= */
-/* 카드 자체 – 높이는 내용에 맞게, 여백은 조금만 */
+/* 이하 카드/모달 관련 기존 스타일은 그대로 사용 */
 .menu-card {
   background: #ffffff;
   border: none;
   overflow: hidden;
-  /* height를 강제로 고정해놨다면 지워줘 */
 }
 
-/* 이미지 영역 */
 .menu-card-image-wrapper {
   position: relative;
   width: 100%;
-  padding-top: 100%;       /* 정사각형 유지 */
+  padding-top: 100%;
   overflow: hidden;
-  background: #ffffff;     /* 여백 흰색 */
+  background: #ffffff;
 }
 
 .menu-card-image {
@@ -135,30 +255,22 @@ body {
   inset: 0;
   width: 100%;
   height: 100%;
-
-  object-fit: contain;     /* 이미지 전체 표시 */
-  background-color: rgb(245, 245, 245); /* 남는 공간 옅은 흰색 */
+  object-fit: contain;
+  background-color: rgb(245, 245, 245);
 }
 
-/* 텍스트 영역 (공통) */
 .menu-card-content {
   padding: 0.5vh 0.5vw;
 }
 
-/* 🔥 텍스트 래퍼: 고정 높이 카드 내부 레이아웃 */
 .menu-card-text {
   padding: 0.35rem 0.2rem 0.3rem;
-
   display: flex;
   flex-direction: column;
   box-sizing: border-box;
-
-  /* 카드마다 텍스트 영역 높이를 고정해서
-     설명이 길어도 / 짧아도 전체 카드 높이는 동일 */
-  height: 3.4rem;   /* 필요하면 숫자만 살짝 조절해서 맞춰봐 */
+  height: 3.4rem;
 }
 
-/* 이름 */
 .menu-card-name {
   flex: 0 0 auto;
   color: #4d84ce;
@@ -167,26 +279,23 @@ body {
   font-weight: 700;
 }
 
-/* meta 줄: 위/아래 여백 제거 + 한 줄 높이 고정 */
 .menu-card-meta {
-  flex: 0 0 1.2em;     /* 항상 한 줄 자리 */
+  flex: 0 0 1.2em;
   margin: 0;
   color: #4d84ce;
   font-size: 0.38rem;
   line-height: 1.2;
 }
 
-/* meta 가 없을 때: 자리만 유지 (높이는 동일) */
 .menu-card-meta--empty {
   visibility: hidden;
 }
 
-/* 추가 메타 설명(있다면) – 위/아래 여백 최소화 */
 .menu-card-extra {
   flex: 0 0 auto;
   font-size: 0.4rem;
   color: #777;
-  margin: 0;          /* 🔥 위아래 여백 제거 */
+  margin: 0;
   line-height: 1.3;
 }
 
@@ -195,15 +304,14 @@ body {
   font-size: 0.38rem;
   line-height: 1.4;
   color: #444;
-
-  /* 🔥 3줄까지만 보이고 나머지는 잘라 + ... */
   display: -webkit-box;
   -webkit-box-orient: vertical;
-  -webkit-line-clamp: 3;   /* 최대 3줄 */
+  -webkit-line-clamp: 3;
   overflow: hidden;
   word-break: break-word;
 }
-/* 재고 없음 오버레이 */
+
+/* 재고/숨김 오버레이 등 기존 것들도 그대로 유지 */
 .menu-card-overlay {
   position: absolute;
   inset: 0;
@@ -218,123 +326,8 @@ body {
   color: #ffffff;
   font-size: 0.8rem;
   font-weight: 700;
-  text-shadow: 0 2px 4px rgba(0,0,0,0.4);
+  text-shadow: 0 2px 4px rgba(0, 0, 0, 0.4);
   letter-spacing: 0.5px;
 }
 
-/* ============================
-   모달 뒤 배경 (반투명 검정)
-============================ */
-.menu-modal-backdrop {
-  position: fixed;
-  inset: 0;
-  background-color: rgba(0, 0, 0, 0.5);
-  display: flex;
-  align-items: center;
-  justify-content: center;
-  z-index: 50;
-}
-
-/* 모달 박스 */
-.menu-modal {
-  position: relative;
-  background-color: #ffffff;
-  border-radius: 16px;
-
-  width: 85vw;
-  height: 70vh;
-
-  max-width: none;
-  max-height: none;
-
-  overflow-y: auto;
-  overflow-x: hidden;
-
-  padding: 3vh 3vw;   /* ← 🔥 모달 안쪽 여백 추가 */
-  box-shadow: 0 4px 16px rgba(0, 0, 0, 0.25);
-}
-
-/* 닫기 버튼 */
-.menu-modal-close {
-  position: absolute;
-  top: 8px;
-  right: 8px;
-  z-index: 2;
-  width: 0.8rem;
-  height: 0.8rem;
-  border-radius: 999px;
-  border: none;
-  background: rgba(0, 0, 0, 0.55);
-  color: #ffffff;
-  font-size: 0.7rem;
-  line-height: 1;
-  cursor: pointer;
-}
-
-/* 이미지 영역 */
-.menu-modal-image-wrapper {
-  width: 100%;
-}
-
-.menu-modal-image {
-  width: 100%;
-  display: block;
-  border-top-left-radius: 16px;
-  border-top-right-radius: 16px;
-}
-
-/* 텍스트 영역 */
-.menu-modal-content {
-  padding: 16px 18px 20px;
-}
-
-.menu-modal-name {
-  font-size: 1rem;
-  font-weight: 700;
-  margin: 15px 0 8px;
-  color: #4d84ce;
-}
-
-.menu-modal-extra {
-  font-size: 0.6rem;
-  margin: 0 0 8px;
-  color: #555;
-  line-height: 1.4;
-  color: #4d84ce;
-}
-
-/* 설명: 줄바꿈 + 가로 넘침 방지 */
-.menu-modal-description {
-  font-size: 0.6rem;
-  line-height: 1.5;
-  color: #444;
-  margin: 0;
-  white-space: pre-wrap;
-  word-break: break-word;
-}
-
-/* ============================
-   서브 탭 (하위 카테고리)
-============================ */
-.menu-subtabs {
-  display: flex;
-  gap: 12px;
-  padding: 8px 16px 16px;
-  border-bottom: 1px solid #f0f0f0;
-}
-
-/* 서브 탭 버튼 */
-.menu-subtab-button {
-  border: none;
-  background: transparent;
-  padding: 4px 8px;
-  font-size: 0.6rem;
-  color: #777;
-  cursor: pointer;
-}
-
-.menu-subtab-button--active {
-  color: #ff6400;
-  font-weight: 700;
-  border-bottom: 2px solid #ff6400;
-}
+/* 모달 쪽 스타일은 네가 쓰던 걸 그대로 두면 됨 */
