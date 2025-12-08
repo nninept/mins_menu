@@ -245,18 +245,25 @@ body {
   border-radius: 16px;
   padding: 16px;
   max-width: 90vw;
-  max-height: 90vh;
+  max-height: 80vh;
   overflow-y: auto;
 }
 .menu-modal-close {
-  position: absolute;
-  right: 12px;
-  top: 12px;
-  background: none;
+  position: fixed;
+  top: 3rem;
+  right: 1rem;
+  z-index: 3000;
+  background: rgba(0, 0, 0, 0.6);
+  color: white;
+  font-size: 1.5rem;
   border: none;
-  font-size: 22px;
+  border-radius: 50%;
+  width: 1.5rem;
+  height: 1.5rem;
+  display: flex;
+  justify-content: center;
+  align-items: center;
   cursor: pointer;
-  z-index: 10;
 }
 /* 이미지 박스 */
 .menu-modal-image-wrapper {
@@ -292,6 +299,7 @@ body {
 .menu-modal-description {
   font-size: 0.5rem;
   line-height: 1.6;
+  white-space: pre-line;
 }
 /* =========================================
    메뉴 카드 그리드
