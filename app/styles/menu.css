@@ -24,7 +24,7 @@ body {
   background-color: #ffffff;
   color: #fff;
 
-  overflow-x: clip;
+  overflow-x: visible;
 }
 
 /* =========================================
@@ -225,6 +225,74 @@ body {
   border-bottom: 2px solid #ff6400;
 }
 
+.menu-modal-backdrop {
+  position: fixed !important;
+  inset: 0;
+  width: 100vw;
+  height: 100vh;
+  background: rgba(0,0,0,0.55);
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  z-index: 999999 !important; /* 무조건 최상위 */
+  pointer-events: auto;
+}
+
+.menu-modal {
+  position: relative;
+  z-index: 1000000 !important;
+  background: white;
+  border-radius: 16px;
+  padding: 16px;
+  max-width: 90vw;
+  max-height: 90vh;
+  overflow-y: auto;
+}
+.menu-modal-close {
+  position: absolute;
+  right: 12px;
+  top: 12px;
+  background: none;
+  border: none;
+  font-size: 22px;
+  cursor: pointer;
+  z-index: 10;
+}
+/* 이미지 박스 */
+.menu-modal-image-wrapper {
+  width: 100%;
+  border-radius: 10px;
+  overflow: hidden;
+}
+
+.menu-modal-image {
+  width: 100%;
+  height: auto;
+  display: block;
+}
+
+/* 텍스트 영역 */
+.menu-modal-content {
+  margin-top: 1rem;
+  color: #222;
+}
+
+.menu-modal-name {
+  font-size: 1rem;
+  font-weight: 700;
+  margin-bottom: 0.3rem;
+}
+
+.menu-modal-extra {
+  font-size: 0.6rem;
+  color: #777;
+  margin-bottom: 0.5rem;
+}
+
+.menu-modal-description {
+  font-size: 0.5rem;
+  line-height: 1.6;
+}
 /* =========================================
    메뉴 카드 그리드
 ========================================= */
